@@ -279,6 +279,11 @@ function freshenTypeaheads() {
     $(':input[class="typeahead"]').each(function(){
         var $this = $(this);
         $this.typeahead({
+            
+            matcher: function(item) {
+                return true;
+            },
+  
             source:function(query,process){
                 // if in cache use cached value, if don't wanto use cache remove this if statement
                 parentid = $this.parent().attr("id");
@@ -315,13 +320,22 @@ function freshenTypeaheads() {
                 }
                 
                 //alert( type );
-                q = '(' + query + ' OR ' + query + '*)';
+                q = "";
                 if (rdftype) {
-                    q = q + ' AND ' + rdftype
-                    }
+                    q = rdftype;
+                }
                 if (subdivision) {
+                    if ( q !== "") {
                         q = q + ' AND ' + subdivision
+                    } else {
+                        q = subdivision
                     }
+                }
+                if (q !== "") {
+                    q = q + ' AND (' + query + ' OR ' + query + '* OR *' + query + '*)';
+                } else {
+                    q = '(' + query + ' OR ' + query + '* OR *' + query + '*)';
+                }
                 //alert(q);
                 q = encodeURI(q);
                 
