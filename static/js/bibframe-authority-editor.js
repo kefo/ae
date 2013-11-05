@@ -349,7 +349,7 @@ function freshenTypeaheads() {
                 }
                 
                 searching = setTimeout(function() {
-                    if ( query.length > 3 ) {
+                    if ( query.length > 2 ) {
                         //alert(q)
                         //u = "http://localhost:8281/search/?format=jsonp&start=1&count=10&q=" + q;
                         u = "http://id.loc.gov/search/?format=jsonp&start=1&count=10&q=" + q;
